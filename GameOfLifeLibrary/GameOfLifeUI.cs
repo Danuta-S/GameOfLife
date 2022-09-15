@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace GameOfLife
 {
@@ -30,5 +26,70 @@ namespace GameOfLife
 
         // True if cell rules can loop around edges.
         public static bool loopEdges = true;
+
+        /// <summary>
+        /// Sets up the Console.
+        /// </summary>
+        public static void InitializeConsole()
+        {
+            Console.BackgroundColor = GameOfLifeUI.extra_color;
+            Console.Clear();
+
+            Console.CursorVisible = false;
+
+            // Each cell is two characters wide.
+            // Using an extra row on the bottom to prevent scrolling when drawing the board.
+            int width = Math.Max(GameOfLifeUI.width, 8) * 2 + 1;
+            int height = Math.Max(GameOfLifeUI.height, 8) + 1;
+            Console.SetWindowSize(width, height);
+            Console.SetBufferSize(width, height);
+
+            Console.BackgroundColor = GameOfLifeUI.dead_color;
+            Console.ForegroundColor = GameOfLifeUI.live_color;
+        }
+
+        /// <summary>
+        /// Creates the initial board with a random state.
+        /// </summary>
+        public static void InitializeRandomBoard()
+        {
+            var random = new Random();
+
+            GameOfLifeUI.board = new bool[GameOfLifeUI.width, GameOfLifeUI.height];
+            for (var y = 0; y < GameOfLifeUI.height; y++)
+            {
+                for (var x = 0; x < GameOfLifeUI.width; x++)
+                {
+                    // Equal probability of being true or false.
+                    GameOfLifeUI.board[x, y] = random.Next(2) == 0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Draws the board to the console.
+        /// </summary>
+        public static void DrawBoard()
+        {
+            // One Console.Write call is much faster than writing each cell individually.
+            var builder = new StringBuilder();
+
+            for (var y = 0; y < GameOfLifeUI.height; y++)
+            {
+                for (var x = 0; x < GameOfLifeUI.width; x++)
+                {
+                    char c = GameOfLifeUI.board[x, y] ? GameOfLifeUI.full_block_char : GameOfLifeUI.empty_block_char;
+
+                    // Each cell is two characters wide.
+                    builder.Append(c);
+                    builder.Append(c);
+                }
+                builder.Append('\n');
+            }
+
+            // Write the string to the console.
+            Console.SetCursorPosition(0, 0);
+            Console.Write(builder.ToString());
+        }
     }
 }
