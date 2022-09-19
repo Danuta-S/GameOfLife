@@ -8,13 +8,13 @@
         /// <summary>
         /// Checks if the file for saving information exists.
         /// </summary>
-        /// <returns>FilePath</returns>
+        /// <returns>FilePath - information about the location of the file where the info is saved.</returns>
         bool CheckIfFileExists();
 
         /// <summary>
         /// Checks if the folder for the file where the information will be saved exists.
         /// </summary>
-        /// <returns>RootFolder</returns>
+        /// <returns>RootFolder - folder's location and name where the file is saved.</returns>
         bool CheckIfDirectoryExists();
 
         /// <summary>

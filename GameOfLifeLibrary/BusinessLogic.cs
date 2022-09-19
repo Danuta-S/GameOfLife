@@ -41,7 +41,7 @@ namespace GameOfLifeLibrary
         /// </summary>
         /// <param name="column" describes the columns of the grid.></param>
         /// <param name="row" describes the rows of the grid.></param>
-        /// <returns>value</returns>
+        /// <returns>Value - the number of live neighbors.</returns>
         public static int CountLiveNeighbors(int column, int row)
         {
             // The number of live neighbors.
