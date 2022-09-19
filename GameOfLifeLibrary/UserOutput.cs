@@ -59,7 +59,7 @@ namespace GameOfLifeLibrary
         }
 
         /// <summary>
-        /// Shows navigation menu and possibility for the user to select size of field, and shows the outcome in a Console window.
+        /// Runs the application: shows navigation menu and possibility for the user to select size of field, and shows the outcome in a Console window.
         /// </summary>
         public static void StartApp()
         {

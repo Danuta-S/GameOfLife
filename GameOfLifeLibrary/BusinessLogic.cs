@@ -8,11 +8,11 @@ namespace GameOfLifeLibrary
     /// </summary>
     public class BusinessLogic
     {
+        //private int invokeCount = 0;
+
         /// <summary>
         /// Moves the board to the next state based on Conway's rules.
         /// </summary>
-        /// 
-        //private int invokeCount = 0;
         public static void UpdateBoard()
         {
             // A temp variable to hold the next state while it's being calculated.
@@ -39,9 +39,9 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Returns the number of live neighbors around the cell at position (x,y).
         /// </summary>
-        /// <param name="column"></param>
-        /// <param name="row"></param>
-        /// <returns></returns>
+        /// <param name="column" describes the columns of the grid.></param>
+        /// <param name="row" describes the rows of the grid.></param>
+        /// <returns>value</returns>
         public static int CountLiveNeighbors(int column, int row)
         {
             // The number of live neighbors.
@@ -79,20 +79,20 @@ namespace GameOfLifeLibrary
             return value - (GameOfLifeUI.board[column, row] ? 1 : 0);
         }
 
+        /// <summary>
+        /// Checks the rows of the grid - the outer for loop for rows.
+        /// </summary>
         public static void CheckRows()
         {
-            for (var row = 0; row < GameOfLifeUI.height; row++)
-            {
-                GameOfLifeUI.board[row, row] = false;
-            }
+
         }
 
+        /// <summary>
+        /// Checks the columns of the grid - the inner for loop for columns.
+        /// </summary>
         public static void CheckColumns()
         {
-            for (var column = 0; column < GameOfLifeUI.width; column++)
-            {
-                GameOfLifeUI.board[column, column] = false;
-            }
+
         }
     }
 }
