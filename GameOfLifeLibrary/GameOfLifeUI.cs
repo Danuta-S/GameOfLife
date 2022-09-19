@@ -2,6 +2,9 @@
 
 namespace GameOfLife
 {
+    /// <summary>
+    /// Contains methods and variables that are responsible for the look of the cell board.
+    /// </summary>
     public class GameOfLifeUI
     {
         // The delay in milliseconds between board updates.
@@ -21,8 +24,8 @@ namespace GameOfLife
         public static bool[,] board;
 
         // The dimensions of the board in cells.
-        public static int width = 32;
-        public static int height = 32;
+        public static int width;
+        public static int height;
 
         // True if cell rules can loop around edges.
         public static bool loopEdges = true;
@@ -56,12 +59,12 @@ namespace GameOfLife
             var random = new Random();
 
             GameOfLifeUI.board = new bool[GameOfLifeUI.width, GameOfLifeUI.height];
-            for (var y = 0; y < GameOfLifeUI.height; y++)
+            for (var row = 0; row < GameOfLifeUI.height; row++)
             {
-                for (var x = 0; x < GameOfLifeUI.width; x++)
+                for (var column = 0; column < GameOfLifeUI.width; column++)
                 {
                     // Equal probability of being true or false.
-                    GameOfLifeUI.board[x, y] = random.Next(2) == 0;
+                    GameOfLifeUI.board[column, row] = random.Next(2) == 0;
                 }
             }
         }
@@ -73,14 +76,22 @@ namespace GameOfLife
         {
             // One Console.Write call is much faster than writing each cell individually.
             var builder = new StringBuilder();
+            //int live_count = 0;
 
-            for (var y = 0; y < GameOfLifeUI.height; y++)
+            for (var row = 0; row < GameOfLifeUI.height; row++)
             {
-                for (var x = 0; x < GameOfLifeUI.width; x++)
+                for (var column = 0; column < GameOfLifeUI.width; column++)
                 {
-                    char c = GameOfLifeUI.board[x, y] ? GameOfLifeUI.full_block_char : GameOfLifeUI.empty_block_char;
-
-                    // Each cell is two characters wide.
+                    char c = GameOfLifeUI.board[column, row] ? GameOfLifeUI.full_block_char : GameOfLifeUI.empty_block_char;
+                    //if (GameOfLifeUI.board[column, row])
+                    //{
+                    //    live_count = live_count++;
+                    //}
+                    //else
+                    //{
+                    //  //  live_count = ;
+                    //}
+                    //// Each cell is two characters wide.
                     builder.Append(c);
                     builder.Append(c);
                 }
@@ -90,6 +101,7 @@ namespace GameOfLife
             // Write the string to the console.
             Console.SetCursorPosition(0, 0);
             Console.Write(builder.ToString());
+            //Console.Write(live_count.ToString());
         }
     }
 }

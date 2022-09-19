@@ -1,6 +1,6 @@
 namespace UnitTest
 {
-    public class UnitTest1
+    public class Fact
     {
         [Fact]
         public void CountLiveNeighbors_Zero_ReturnsTrue()
