@@ -1,5 +1,6 @@
 ﻿using GameOfLife;
 using System.Text.Json;
+using System.IO;
 
 namespace GameOfLifeLibrary
 {
@@ -8,8 +9,8 @@ namespace GameOfLifeLibrary
     /// </summary>
     public class GameOfLifeFileOperator : IGameOfLifeFileOperator
     {
-        private const string RootFolder = @"C:\GameOfLifeFolder";
-        private const string FilePath = @"C:\GameOfLifeFolder\CellData.txt";
+        public const string rootFolder = @"C:\GameOfLifeFolder";
+        public const string filePath = @"C:\GameOfLifeFolder\CellData.txt";
 
         /// <summary>
         /// Checks if the file for saving information exists.
@@ -17,7 +18,7 @@ namespace GameOfLifeLibrary
         /// <returns>FilePath - information about the location of the file where the info is saved.</returns>
         public bool CheckIfFileExists()
         {
-            return File.Exists(FilePath);
+            return File.Exists(filePath);
         }
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace GameOfLifeLibrary
         /// <returns>RootFolder - folder's location and name where the file is saved.</returns>
         public bool CheckIfDirectoryExists()
         {
-            return Directory.Exists(RootFolder);
+            return Directory.Exists(rootFolder);
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace GameOfLifeLibrary
         {
             if (!exists)
             {
-                File.Create(FilePath);
+                File.Create(filePath);
             }
         }
 
@@ -49,17 +50,23 @@ namespace GameOfLifeLibrary
         {
             if (!exists)
             {
-                File.Create(FilePath);
+                File.Create(filePath);
             }
         }
 
-        //public static void JsonSerialization(Board board)
+        //public static void SaveInformationToFile()
         //{
-        //    var json = JsonSerializer.Serialize<Board>(board);
+        //    //    string[] lines = { GameOfLifeUI.board };
+        //    //    File.WriteAllLines(@"C:\GameOfLifeFolder\CellData.txt", lines);
+        //    //}
+
+        //    //public static void JsonSerialization(GameOfLifeUI.board)
+        //    //{
+        //    string json = JsonSerializer.Serialize(GameOfLifeUI.board);
         //    Console.WriteLine(json);
 
-        //    var desObject = JsonSerializer.Deserialize<Board>(json);
-        //    Console.WriteLine($"Board object : {desObject.width} {desObject.height}");
+        //    //    var desObject = JsonSerializer.Deserialize<Board>(json);
+        //    //    Console.WriteLine($"Board object : {desObject.width} {desObject.height}");
         //}
     }
 }
