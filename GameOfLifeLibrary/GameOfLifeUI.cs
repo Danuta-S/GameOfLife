@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Data.Common;
+using System.Text;
 
 namespace GameOfLife
 {
@@ -30,12 +32,15 @@ namespace GameOfLife
         // True if cell rules can loop around edges.
         public static bool loopEdges = true;
 
+        // Iteration counter represemts count of iterations.
+        public static int iterationCount = 0;
+
         /// <summary>
         /// Sets up the Console.
         /// </summary>
         public static void InitializeConsole()
         {
-            Console.BackgroundColor = GameOfLifeUI.extra_color;
+            Console.BackgroundColor = extra_color;
             Console.Clear();
 
             Console.CursorVisible = false;
@@ -47,8 +52,8 @@ namespace GameOfLife
             Console.SetWindowSize(width, height);
             Console.SetBufferSize(width, height);
 
-            Console.BackgroundColor = GameOfLifeUI.dead_color;
-            Console.ForegroundColor = GameOfLifeUI.live_color;
+            Console.BackgroundColor = dead_color;
+            Console.ForegroundColor = live_color;
         }
 
         /// <summary>
@@ -58,16 +63,26 @@ namespace GameOfLife
         {
             var random = new Random();
 
-            GameOfLifeUI.board = new bool[GameOfLifeUI.width, GameOfLifeUI.height];
-            for (var row = 0; row < GameOfLifeUI.height; row++)
+            board = new bool[width, height];
+            for (var row = 0; row < height; row++)
             {
-                for (var column = 0; column < GameOfLifeUI.width; column++)
-                {
-                    // Equal probability of being true or false.
-                    GameOfLifeUI.board[column, row] = random.Next(2) == 0;
-                }
+                GenerateRandomColumn(random, row);
             }
         }
+
+        /// <summary>
+        /// Creates the initial columns with a random state.
+        /// </summary>
+        /// <param name="random" random object.></param>
+        /// <param name="row" describes the rows of the grid.></param>
+        private static void GenerateRandomColumn(Random random, int row)
+        {
+            for (var column = 0; column < width; column++)
+            {
+                // Equal probability of being true or false.
+                board[column, row] = random.Next(2) == 0;
+            }
+        }    
 
         /// <summary>
         /// Draws the board to the console.
@@ -75,33 +90,34 @@ namespace GameOfLife
         public static void DrawBoard()
         {
             // One Console.Write call is much faster than writing each cell individually.
-            var builder = new StringBuilder();
-            //int live_count = 0;
+            StringBuilder builder = new();
 
-            for (var row = 0; row < GameOfLifeUI.height; row++)
+            for (var row = 0; row < height; row++)
             {
-                for (var column = 0; column < GameOfLifeUI.width; column++)
-                {
-                    char c = GameOfLifeUI.board[column, row] ? GameOfLifeUI.full_block_char : GameOfLifeUI.empty_block_char;
-                    //if (GameOfLifeUI.board[column, row])
-                    //{
-                    //    live_count = live_count++;
-                    //}
-                    //else
-                    //{
-                    //  //  live_count = ;
-                    //}
-                    //// Each cell is two characters wide.
-                    builder.Append(c);
-                    builder.Append(c);
-                }
+                DrawColumn(builder, row);
                 builder.Append('\n');
             }
 
             // Write the string to the console.
             Console.SetCursorPosition(0, 0);
             Console.Write(builder.ToString());
-            //Console.Write(live_count.ToString());
+        }
+
+        /// <summary>
+        /// Draws the columns to the console.
+        /// </summary>
+        /// <param name="builder" object of a Stringbuilder.></param>
+        /// <param name="row" describes the rows of the grid.></param>
+        private static void DrawColumn(StringBuilder builder, int row)
+        {
+            for (var column = 0; column < width; column++)
+            {
+                char c = board[column, row] ? full_block_char : empty_block_char;
+
+                // Each cell is two characters wide.
+                builder.Append(c);
+                builder.Append(c);
+            }
         }
     }
 }
