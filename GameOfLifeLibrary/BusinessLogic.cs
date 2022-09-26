@@ -88,9 +88,9 @@ namespace GameOfLifeLibrary
         /// </summary>
         /// <param name="column" describes the columns of the grid.></param>
         /// <param name="value" describes the number of live neighbors.></param>
-        /// <param name="k" row index on the oposite side of the board></param>
+        /// <param name="inverseRow" row index on the oposite side of the board.></param>
         /// <returns>Value - the number of live neighbors.</returns>
-        private static int CountNeighborsInColumn(int column, int value, int k)
+        private static int CountNeighborsInColumn(int column, int value, int inverseRow)
         {
             for (var i = -1; i <= 1; i++)
             {
@@ -101,10 +101,10 @@ namespace GameOfLifeLibrary
                 }
 
                 // Loop around the edges if x+i is off the board.
-                int h = (column + i + GameOfLifeUI.width) % GameOfLifeUI.width;
+                int inverseColumn = (column + i + GameOfLifeUI.width) % GameOfLifeUI.width;
 
                 // Count the neighbor cell at (h,k) if it is alive.
-                value += GameOfLifeUI.board[h, k] ? 1 : 0;
+                value += GameOfLifeUI.board[inverseColumn, inverseRow] ? 1 : 0;
             }
 
             return value;

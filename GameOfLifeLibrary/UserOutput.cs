@@ -10,36 +10,16 @@ namespace GameOfLifeLibrary
     public class UserOutput
     {
         /// <summary>
-        /// Shows a Welcome message and information how to stop the game.
+        /// Navigation menu at the start of the game.
         /// </summary>
-        public static void ShowMenu()
+        private static void ShowMenu()
         {
             var option = Console.ReadLine();
             
             switch (option)
             {
                 case "1":
-                    Console.WriteLine("Please enter the size of field.");
-                    WidthCheck();
-                    HeightCheck();
-                    if (GameOfLifeUI.width > 0 && GameOfLifeUI.height > 0)
-                    {
-                        GameOfLifeUI.InitializeRandomBoard();
-                        GameOfLifeUI.InitializeConsole();
-
-                        // Run the game until the Escape key is pressed.
-                        while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
-                        {
-                            RunGame();
-                        }
-
-                        ExitMenuMessage();
-                        ExitMenu();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid input!");
-                    }
+                    ShowMenuStartANewGameCase();
                     break;
                 case "2":
                     Console.WriteLine("Under Construction :)");
@@ -47,6 +27,34 @@ namespace GameOfLifeLibrary
                 case "3":
                     //Console.WriteLine("You can stop application in any moment by pressing \'Esc\' key" + Environment.NewLine);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Logic of the navigation's menu Case "1" - start a new game.
+        /// </summary>
+        private static void ShowMenuStartANewGameCase()
+        {
+            Console.WriteLine("Please enter the size of field.");
+            WidthCheck();
+            HeightCheck();
+            if (GameOfLifeUI.width > 0 && GameOfLifeUI.height > 0)
+            {
+                GameOfLifeUI.InitializeRandomBoard();
+                GameOfLifeUI.InitializeConsole();
+
+                // Run the game until the Escape key is pressed.
+                while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
+                {
+                    RunGame();
+                }
+
+                ExitMenuMessage();
+                ExitMenu();
+            }
+            else
+            {
+                Console.WriteLine("Invalid input!");
             }
         }
 

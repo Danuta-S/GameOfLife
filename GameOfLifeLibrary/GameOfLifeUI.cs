@@ -33,7 +33,7 @@ namespace GameOfLife
         public static bool loopEdges = true;
 
         // Iteration counter represemts count of iterations.
-        public static int iterationCount=0;
+        public static int iterationCount = 0;
 
         /// <summary>
         /// Sets up the Console.
@@ -82,16 +82,7 @@ namespace GameOfLife
                 // Equal probability of being true or false.
                 board[column, row] = random.Next(2) == 0;
             }
-        }
-
-        //public static void InitializeSavedBoard()
-        //{
-        //    board = new bool[width, height];
-        //    for (var row = 0; row < height; row++)
-        //    {
-        //        GenerateRandomColumn(random, row);
-        //    }
-        //}
+        }    
 
         /// <summary>
         /// Draws the board to the console.

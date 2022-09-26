@@ -9,8 +9,8 @@ namespace GameOfLifeLibrary
     /// </summary>
     public class GameOfLifeFileOperator : IGameOfLifeFileOperator
     {
-        public const string rootFolder = @"C:\GameOfLifeFolder";
-        public const string filePath = @"C:\GameOfLifeFolder\CellData.txt";
+        private const string rootFolder = @"C:\GameOfLifeFolder";
+        private const string filePath = @"C:\GameOfLifeFolder\CellData.txt";
 
         /// <summary>
         /// Checks if the file for saving information exists.
@@ -53,20 +53,5 @@ namespace GameOfLifeLibrary
                 File.Create(filePath);
             }
         }
-
-        //public static void SaveInformationToFile()
-        //{
-        //    //    string[] lines = { GameOfLifeUI.board };
-        //    //    File.WriteAllLines(@"C:\GameOfLifeFolder\CellData.txt", lines);
-        //    //}
-
-        //    //public static void JsonSerialization(GameOfLifeUI.board)
-        //    //{
-        //    string json = JsonSerializer.Serialize(GameOfLifeUI.board);
-        //    Console.WriteLine(json);
-
-        //    //    var desObject = JsonSerializer.Deserialize<Board>(json);
-        //    //    Console.WriteLine($"Board object : {desObject.width} {desObject.height}");
-        //}
     }
 }

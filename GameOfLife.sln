@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLife", "GameOfLife\Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLife.Library", "GameOfLifeLibrary\GameOfLife.Library.csproj", "{A29DE468-4F15-450C-A298-DE029128DDCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfLife.UnitTests", "UnitTest\GameOfLife.UnitTests.csproj", "{54872340-9272-47BF-A62C-0A3E4FE64562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTest\UnitTests.csproj", "{54872340-9272-47BF-A62C-0A3E4FE64562}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
