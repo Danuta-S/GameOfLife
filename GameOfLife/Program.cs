@@ -4,9 +4,11 @@ namespace GameOfLife
 {
     class Program
     {
+        private static readonly GameOfLifeManager Manager = new();
+
         static void Main(string[] args)
         {
-            UserOutput.StartApp();
+            Manager.StartApp();
         }
     }
 }

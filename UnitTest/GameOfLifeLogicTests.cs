@@ -3,10 +3,10 @@ using FluentAssertions;
 using GameOfLifeLibrary;
 using GameOfLife;
 
-namespace UnitTests
+namespace GameOfLife.UnitTests
 {
     [Trait("Category", "UnitTest")]
-    public class Fact
+    public class GameOfLifeLogicTests
     {
 
     }
