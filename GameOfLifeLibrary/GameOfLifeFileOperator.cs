@@ -32,7 +32,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Creates a new file and folder for saving information if the file does not exist already.
         /// </summary>
-        /// <param name="exists" bool param "exists" checks if the file does not exist to create a new file - FilePath.></param>
+        /// <param name="exists">bool param "exists" checks if the file does not exist to create a new file - FilePath.</param>
         public void IfFileNotExistCreateNewFile(bool exists)
         {
             if (!exists)
@@ -44,7 +44,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Creates a new folder and file for saving information if the folder does not exist already.
         /// </summary>
-        /// <param name="exists" bool param "exists" checks if the file does not exist to create a new file - FilePath.></param>
+        /// <param name="exists">bool param "exists" checks if the file does not exist to create a new file - FilePath.</param>
         public void IfDirectoryNotExistCreateNewDirectory(bool exists)
         {
             if (!exists)
@@ -56,7 +56,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Saves the game to file.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
         public void JSONSerilaize(CellBoard cellBoard)
         {
             string jsonData = JsonConvert.SerializeObject(cellBoard, Formatting.Indented);

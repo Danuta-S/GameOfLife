@@ -13,7 +13,7 @@
         public bool[,] board { get; set; } = null!;
 
         // True if cell rules can loop around edges.
-        public bool loopEdges = true;
+        public bool canLoopEdges = true;
 
         // Iteration counter represents count of iterations.
         public int iterationCount { get; set; }

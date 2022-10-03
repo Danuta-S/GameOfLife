@@ -17,8 +17,8 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Creates object of the CellBoard.
         /// </summary>
-        /// <param name="width" The width dimensions of the board in cells.></param>
-        /// <param name="height" The height dimensions of the board in cells.></param>
+        /// <param name="width">The width dimensions of the board in cells.</param>
+        /// <param name="height">The height dimensions of the board in cells.</param>
         /// <returns>cellBoard object of the CellBoard.</returns>
         public CellBoard CreateCellBoardObject(int width, int height)
         {
@@ -27,7 +27,7 @@ namespace GameOfLifeLibrary
             cellBoard.height = height;
             cellBoard.iterationCount = 0;
             cellBoard.aliveCount = 0;
-            cellBoard.loopEdges = true;
+            cellBoard.canLoopEdges = true;
             Manager.InitializeRandomBoard(cellBoard);
             return cellBoard;
         }
@@ -148,7 +148,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Draws the board to the console.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
         public void DrawBoard(CellBoard cellBoard)
         {
             // One Console.Write call is much faster than writing each cell individually.
@@ -168,9 +168,9 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Draws the columns to the console.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
-        /// <param name="builder" object of a Stringbuilder.></param>
-        /// <param name="row" describes the rows of the grid.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <param name="builder">object of a Stringbuilder.</param>
+        /// <param name="row">describes the rows of the grid.</param>
         private void DrawColumn(CellBoard cellBoard, StringBuilder builder, int row)
         {
             for (var column = 0; column < cellBoard.width; column++)
@@ -186,7 +186,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Creates the initial board with a random state.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
         public void InitializeRandomBoard(CellBoard cellBoard)
         {
             //var board = new CellBoard();
@@ -202,9 +202,9 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Creates the initial columns with a random state.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
-        /// <param name="random" random object.></param>
-        /// <param name="row" describes the rows of the grid.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <param name="random">random object.</param>
+        /// <param name="row">describes the rows of the grid.</param>
         public void GenerateRandomColumn(CellBoard cellBoard, Random random, int row)
         {
             for (var column = 0; column < cellBoard.width; column++)

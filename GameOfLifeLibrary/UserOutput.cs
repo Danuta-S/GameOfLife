@@ -32,7 +32,7 @@
         /// <summary>
         /// Represents count of iterations and count of live cells. 
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
         public static void IterationAndLiveCellInformation(CellBoard cellBoard)
         {
             Console.Write($"Iterations: " + cellBoard.iterationCount.ToString() + Environment.NewLine);

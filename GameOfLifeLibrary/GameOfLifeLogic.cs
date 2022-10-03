@@ -12,7 +12,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Moves the board to the next state based on Conway's rules.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
         public void UpdateBoard(CellBoard cellBoard)
         {
             // A temp variable to hold the next state while it's being calculated.
@@ -32,9 +32,9 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Moves the columns to the next state based on Conway's rules.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
-        /// <param name="row" describes the rows of the grid.></param>
-        /// <param name="newBoard" the board is set to its new state.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <param name="row">describes the rows of the grid.</param>
+        /// <param name="newBoard">the board is set to its new state.</param>
         private void UpdateColumns(CellBoard cellBoard, int row, bool[,] newBoard)
         {
             for (var column = 0; column < cellBoard.width; column++)
@@ -51,9 +51,9 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Returns the number of live neighbors around the cell.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
-        /// <param name="column" describes the columns of the grid.></param>
-        /// <param name="row" describes the rows of the grid.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <param name="column">describes the columns of the grid.</param>
+        /// <param name="row">describes the rows of the grid.</param>
         /// <returns>Value - the number of live neighbors.</returns>
         public int CountLiveNeighbors(CellBoard cellBoard, int column, int row)
         {
@@ -64,7 +64,7 @@ namespace GameOfLifeLibrary
             for (var j = -1; j <= 1; j++)
             {
                 // If loopEdges is set to false and row+j is off the board, continue.
-                if (!cellBoard.loopEdges && row + j < 0 || row + j >= cellBoard.height)
+                if (!cellBoard.canLoopEdges && row + j < 0 || row + j >= cellBoard.height)
                 {
                     continue;
                 }
@@ -81,17 +81,17 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Returns the number of live neighbors in column.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
-        /// <param name="column" describes the columns of the grid.></param>
-        /// <param name="value" describes the number of live neighbors.></param>
-        /// <param name="inverseRow" row index on the oposite side of the board.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <param name="column">describes the columns of the grid.</param>
+        /// <param name="value">describes the number of live neighbors.</param>
+        /// <param name="inverseRow">row index on the oposite side of the board.</param>
         /// <returns>Value - the number of live neighbors.</returns>
         public int CountNeighborsInColumn(CellBoard cellBoard, int column, int value, int inverseRow)
         {
             for (var i = -1; i <= 1; i++)
             {
                 // If loopEdges is set to false and column+i is off the board, continue.
-                if (!cellBoard.loopEdges && column + i < 0 || column + i >= cellBoard.width)
+                if (!cellBoard.canLoopEdges && column + i < 0 || column + i >= cellBoard.width)
                 {
                     continue;
                 }
@@ -109,7 +109,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Returns the count of live cells.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
         public void CountAlive(CellBoard cellBoard)
         {
             // Local temp variable holding the number of alive cells.
@@ -126,9 +126,9 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Returns the count of live cells in rows.
         /// </summary>
-        /// <param name="cellBoard" object of the CellBoard.></param>
-        /// <param name="row" describes the rows of the grid.></param>
-        /// <param name="count" the number of live cells.></param>
+        /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <param name="row">describes the rows of the grid.</param>
+        /// <param name="count">the number of live cells.</param>
         /// <returns>Count - the number of live cells.</returns>
         public int CounAliveInRows(CellBoard cellBoard, int row, int count)
         {
