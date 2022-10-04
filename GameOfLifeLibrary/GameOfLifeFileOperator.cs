@@ -1,8 +1,6 @@
-﻿using GameOfLife;
-using System.Text.Json;
-using System.IO;
+﻿using Newtonsoft.Json;
 
-namespace GameOfLifeLibrary
+namespace GameOfLife.Library
 {
     /// <summary>
     /// Contains methods and variables for saving information to file and restoring it on application start.
@@ -33,7 +31,7 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Creates a new file and folder for saving information if the file does not exist already.
         /// </summary>
-        /// <param name="exists" bool param "exists" checks if the file does not exist to create a new file - FilePath.></param>
+        /// <param name="exists">bool param "exists" checks if the file does not exist to create a new file - FilePath.</param>
         public void IfFileNotExistCreateNewFile(bool exists)
         {
             if (!exists)
@@ -45,13 +43,34 @@ namespace GameOfLifeLibrary
         /// <summary>
         /// Creates a new folder and file for saving information if the folder does not exist already.
         /// </summary>
-        /// <param name="exists" bool param "exists" checks if the file does not exist to create a new file - FilePath.></param>
+        /// <param name="exists">bool param "exists" checks if the file does not exist to create a new file - FilePath.</param>
         public void IfDirectoryNotExistCreateNewDirectory(bool exists)
         {
             if (!exists)
             {
                 File.Create(filePath);
             }
+        }
+
+        /// <summary>
+        /// Saves the game to file.
+        /// </summary>
+        /// <param name="cellBoard">object of the CellBoard.</param>
+        public void JSONSerilaize(CellBoard cellBoard)
+        {
+            string jsonData = JsonConvert.SerializeObject(cellBoard, Formatting.Indented);
+            File.WriteAllText(filePath, jsonData);
+        }
+
+        /// <summary>
+        /// Restores the previously saved game.
+        /// </summary>
+        /// <returns>cellBoard object of the CellBoard.</returns>
+        public CellBoard JSONSDeserilaize()
+        {
+            string json = File.ReadAllText(filePath);
+            CellBoard cellBoard = JsonConvert.DeserializeObject<CellBoard>(json);
+            return cellBoard;
         }
     }
 }
