@@ -7,12 +7,19 @@ namespace GameOfLifeLibrary
     /// <summary>
     /// Contains the methods that are responsible for launching the game.
     /// </summary>
-    public class GameOfLifeManager
+    public class GameOfLifeManager : IGameOfLifeManager
     {
-        private static readonly GameOfLifeLogic Logic = new();
-        private static readonly GameOfLifeFileOperator FileOperator = new();
-        private static readonly GameOfLifeManager Manager = new();
-        private static readonly GameOfLifeUI lifeUI = new();
+        private readonly IGameOfLifeManager _gameOfLifeManager;
+        private readonly IGameOfLifeUI _gameOfLifeUI;
+        private readonly IGameOfLifeFileOperator _fileOperator;
+        private readonly IGameOfLifeLogic _lifeLogic;
+
+        public GameOfLifeManager()
+        {
+        }
+
+        public GameOfLifeManager(IGameOfLifeUI gameOfLifeUI, IGameOfLifeManager gameOfLifeManager, IGameOfLifeFileOperator fileOperator, IGameOfLifeLogic lifeLogic) =>
+        (_gameOfLifeUI, _gameOfLifeManager, _fileOperator, _lifeLogic) = (gameOfLifeUI, gameOfLifeManager, fileOperator, lifeLogic);
 
         /// <summary>
         /// Creates object of the CellBoard.
@@ -28,7 +35,7 @@ namespace GameOfLifeLibrary
             cellBoard.iterationCount = 0;
             cellBoard.aliveCount = 0;
             cellBoard.canLoopEdges = true;
-            Manager.InitializeRandomBoard(cellBoard);
+            _gameOfLifeManager.InitializeRandomBoard(cellBoard);
             return cellBoard;
         }
 
@@ -38,7 +45,7 @@ namespace GameOfLifeLibrary
         public void StartApp()
         {
             UserOutput.StartMenuMessage();
-            lifeUI.ShowMenu();
+            _gameOfLifeManager.ShowMenu();
         }
 
         /// <summary>
@@ -47,21 +54,21 @@ namespace GameOfLifeLibrary
         public void StartANewGameCase()
         {
             int width = WidthCheck();
-            int height = Manager.HeightCheck();
+            int height = _gameOfLifeManager.HeightCheck();
 
             if (width > 0 && height > 0)
             {
-                CellBoard game = Manager.CreateCellBoardObject(width, height);
+                CellBoard game = _gameOfLifeManager.CreateCellBoardObject(width, height);
                 Console.Clear();
 
                 // Run the game until the Escape key is pressed.
                 while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
                 {
-                    Manager.RunGame(game);
+                    _gameOfLifeManager.RunGame(game);
                 }
 
                 UserOutput.ExitMenuMessage();
-                lifeUI.ExitMenu(game);
+                _gameOfLifeUI.ExitMenu(game);
             }
             else
             {
@@ -74,15 +81,15 @@ namespace GameOfLifeLibrary
         /// </summary>
         public void StartSavedGameCase()
         {
-            CellBoard game = FileOperator.JSONSDeserilaize();
+            CellBoard game = _fileOperator.JSONSDeserilaize();
             Console.Clear();
             // Run the game until the Escape key is pressed.
             while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
                 {
-                    Manager.RunGame(game);
+                    _gameOfLifeManager.RunGame(game);
                 }
             UserOutput.ExitMenuMessage();
-            lifeUI.ExitMenu(game);
+            _gameOfLifeUI.ExitMenu(game);
         }
 
         /// <summary>
@@ -139,7 +146,7 @@ namespace GameOfLifeLibrary
             //Console.Clear();
             DrawBoard(cellBoard);
             UserOutput.IterationAndLiveCellInformation(cellBoard);
-            Logic.UpdateBoard(cellBoard);
+            _lifeLogic.UpdateBoard(cellBoard);
 
             // Wait for a bit between updates.
             Thread.Sleep(GameOfLifeUI.delay);
@@ -171,7 +178,7 @@ namespace GameOfLifeLibrary
         /// <param name="cellBoard">object of the CellBoard.</param>
         /// <param name="builder">object of a Stringbuilder.</param>
         /// <param name="row">describes the rows of the grid.</param>
-        private void DrawColumn(CellBoard cellBoard, StringBuilder builder, int row)
+        public void DrawColumn(CellBoard cellBoard, StringBuilder builder, int row)
         {
             for (var column = 0; column < cellBoard.width; column++)
             {
@@ -211,6 +218,48 @@ namespace GameOfLifeLibrary
             {
                 // Equal probability of being true or false.
                 cellBoard.board[column, row] = random.Next(2) == 0;
+            }
+        }
+
+        /// <summary>
+        /// Navigation menu at the start of the game.
+        /// </summary>
+        public void ShowMenu()
+        {
+            var option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    _gameOfLifeManager.StartANewGameCase();
+                    break;
+                case "2":
+                    _gameOfLifeManager.StartSavedGameCase();
+                    break;
+                case "3":
+                    UserOutput.EndMessage();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Menu in the end of the game for saving and exiting the game.
+        /// </summary>
+        public void ExitMenu(CellBoard cellBoard)
+        {
+            var option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    Console.Clear();
+                    UserOutput.EndMessage();
+                    break;
+                case "2":
+                    Console.Clear();
+                    _fileOperator.JSONSerilaize(cellBoard);
+                    UserOutput.GameSavedMessage();
+                    break;
             }
         }
     }

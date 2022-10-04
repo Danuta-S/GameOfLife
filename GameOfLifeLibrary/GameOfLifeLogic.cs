@@ -7,7 +7,7 @@ namespace GameOfLifeLibrary
     /// <summary>
     /// Contains methods that are responsible for the logic of the app's algorithm.
     /// </summary>
-    public class GameOfLifeLogic
+    public class GameOfLifeLogic : IGameOfLifeLogic
     {
         /// <summary>
         /// Moves the board to the next state based on Conway's rules.
@@ -35,7 +35,7 @@ namespace GameOfLifeLibrary
         /// <param name="cellBoard">object of the CellBoard.</param>
         /// <param name="row">describes the rows of the grid.</param>
         /// <param name="newBoard">the board is set to its new state.</param>
-        private void UpdateColumns(CellBoard cellBoard, int row, bool[,] newBoard)
+        public void UpdateColumns(CellBoard cellBoard, int row, bool[,] newBoard)
         {
             for (var column = 0; column < cellBoard.width; column++)
             {

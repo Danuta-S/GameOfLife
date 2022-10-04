@@ -6,7 +6,7 @@ namespace GameOfLifeLibrary
     /// <summary>
     /// Contains methods and variables for saving information to file and restoring it on application start.
     /// </summary>
-    public class GameOfLifeFileOperator
+    public class GameOfLifeFileOperator : IGameOfLifeFileOperator
     {
         private const string rootFolder = @"C:\GameOfLifeFolder";
         private const string filePath = @"C:\GameOfLifeFolder\CellData.txt";
