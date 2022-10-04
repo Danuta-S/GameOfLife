@@ -1,7 +1,6 @@
-﻿using GameOfLife.Library;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace GameOfLifeLibrary
+namespace GameOfLife.Library
 {
     /// <summary>
     /// Contains methods and variables for saving information to file and restoring it on application start.

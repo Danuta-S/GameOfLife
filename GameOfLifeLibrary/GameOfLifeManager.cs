@@ -1,8 +1,8 @@
-﻿using GameOfLife;
-using GameOfLife.Library;
-using System.Text;
+﻿using System.Text;
+using StructureMap;
+using StructureMap.Graph;
 
-namespace GameOfLifeLibrary
+namespace GameOfLife.Library
 {
     /// <summary>
     /// Contains the methods that are responsible for launching the game.
@@ -14,13 +14,14 @@ namespace GameOfLifeLibrary
         private readonly IGameOfLifeFileOperator _fileOperator;
         private readonly IGameOfLifeLogic _lifeLogic;
 
-        public GameOfLifeManager()
+        public GameOfLifeManager(IGameOfLifeUI gameOfLifeUI, IGameOfLifeManager gameOfLifeManager, IGameOfLifeFileOperator fileOperator, IGameOfLifeLogic lifeLogic)
         {
+            _gameOfLifeUI = gameOfLifeUI;
+            _gameOfLifeManager = gameOfLifeManager;
+            _fileOperator = fileOperator;
+            _lifeLogic = lifeLogic;
         }
-
-        public GameOfLifeManager(IGameOfLifeUI gameOfLifeUI, IGameOfLifeManager gameOfLifeManager, IGameOfLifeFileOperator fileOperator, IGameOfLifeLogic lifeLogic) =>
-        (_gameOfLifeUI, _gameOfLifeManager, _fileOperator, _lifeLogic) = (gameOfLifeUI, gameOfLifeManager, fileOperator, lifeLogic);
-
+        
         /// <summary>
         /// Creates object of the CellBoard.
         /// </summary>
@@ -68,7 +69,7 @@ namespace GameOfLifeLibrary
                 }
 
                 UserOutput.ExitMenuMessage();
-                _gameOfLifeUI.ExitMenu(game);
+                _gameOfLifeManager.ExitMenu(game);
             }
             else
             {
@@ -89,7 +90,7 @@ namespace GameOfLifeLibrary
                     _gameOfLifeManager.RunGame(game);
                 }
             UserOutput.ExitMenuMessage();
-            _gameOfLifeUI.ExitMenu(game);
+            _gameOfLifeManager.ExitMenu(game);
         }
 
         /// <summary>

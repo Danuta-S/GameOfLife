@@ -1,8 +1,7 @@
 ﻿using GameOfLife;
-using GameOfLife.Library;
 using System.Text;
 
-namespace GameOfLifeLibrary
+namespace GameOfLife.Library
 {
     /// <summary>
     /// Contains methods that are responsible for the logic of the app's algorithm.

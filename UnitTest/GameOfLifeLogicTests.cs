@@ -1,6 +1,6 @@
 using Xunit;
 using FluentAssertions;
-using GameOfLifeLibrary;
+using GameOfLife.Library;
 using GameOfLife;
 
 namespace GameOfLife.UnitTests

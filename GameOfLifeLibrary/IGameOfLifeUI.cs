@@ -8,7 +8,7 @@ namespace GameOfLife.Library
 {
     public interface IGameOfLifeUI
     {
-        void ShowMenu();
-        void ExitMenu(CellBoard cellBoard);
+        //void ShowMenu();
+        //void ExitMenu(CellBoard cellBoard);
     }
 }
