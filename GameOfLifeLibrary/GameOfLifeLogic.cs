@@ -14,21 +14,21 @@ namespace GameOfLife.Library
         public void UpdateBoard(CellBoard cellBoard)
         {
             // A temp variable to hold the next state while it's being calculated.
-            bool[,] newBoard = new bool[cellBoard.width, cellBoard.height];
+            bool[,] nextBoard = new bool[cellBoard.width, cellBoard.height];
 
             // A temp variable to hold the board alive statuss 
             bool alive;
 
             for (var row = 0; row < cellBoard.height; row++)
             {
-                UpdateColumns(cellBoard, row, newBoard);
+                UpdateColumns(cellBoard, row, nextBoard);
             }
             
             // Checks if the updated board state is eqaual to previous.
-            alive = newBoard != cellBoard.board;
+            alive = nextBoard != cellBoard.board;
 
             // Set the board to its new state.
-            cellBoard.board = newBoard;
+            cellBoard.board = nextBoard;
             cellBoard.isAlive = alive;
             cellBoard.iterationCount++;
             cellBoard.aliveCount = CountAlive(cellBoard);
@@ -131,7 +131,7 @@ namespace GameOfLife.Library
         /// <param name="cellBoard">object of the CellBoard.</param>
         /// <param name="aliveCells">the count of live cells.</param>
         /// <param name="row">describes the rows of the grid.</param>
-        /// <returns></returns>
+        /// <returns>aliveCells - the count of live cells in rows.</returns>
         public int CountAliveInRows(CellBoard cellBoard, int aliveCells, int row)
         {
             for (var column = 0; column < cellBoard.width; column++)

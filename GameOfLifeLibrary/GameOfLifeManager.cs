@@ -128,7 +128,7 @@ namespace GameOfLife.Library
         /// </summary>
         public void Start1000SavedGameCase()
         {
-            CellBoard [] games = _fileOperator.LoadPreviouslySavedGamesInArray();
+            CellBoard[] games = _fileOperator.LoadPreviouslySavedGamesInArray();
             Select8GamesToShow();
             Console.Clear();
             // Run the game until the Escape key is pressed.
@@ -153,7 +153,7 @@ namespace GameOfLife.Library
             }
             else
             {
-                throw new Exception("Invalid game index");   
+                throw new Exception("Invalid game index");
             }
         }
 
@@ -170,7 +170,7 @@ namespace GameOfLife.Library
             {
                 //CellBoard game = CreateCellBoardObject(width, height);
                 CellBoard[] games = CreateCellBoardObjectArray(width, height);
-  
+
                 Select8GamesToShow();
 
                 // Run the game until the Escape key is pressed.
