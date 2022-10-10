@@ -1,16 +1,18 @@
-﻿namespace GameOfLife.Library
+﻿using GameOfLife.Library.Interfaces;
+
+namespace GameOfLife.Library
 {
     /// <summary>
     /// Contains methods for all the text that appears as user output in console.
     /// </summary>
-    public static class UserOutput
+    public class UserOutput
     {
         /// <summary>
         /// Shows a FormatException message for the invalid type of width and height input.
         /// </summary>
         public static void FormatExceptionMessage()
         {
-            Console.WriteLine("Format exception, please enter the correct type next time.");
+            Console.WriteLine(Constants.Messages.FormatException);
         }
 
         /// <summary>
@@ -18,7 +20,7 @@
         /// </summary>
         public static void OverFlowExceptionMessage()
         {
-            Console.WriteLine("Overflow exception, the number was too long for an int32");
+            Console.WriteLine(Constants.Messages.OverflowException);
         }
 
         /// <summary>
@@ -26,7 +28,7 @@
         /// </summary>
         public static void HeightMessage()
         {
-            Console.Write("Height: ");
+            Console.Write(Constants.Messages.Height);
         }
 
         /// <summary>
@@ -35,8 +37,8 @@
         /// <param name="cellBoard">object of the CellBoard.</param>
         public static void IterationAndLiveCellInformation(CellBoard cellBoard)
         {
-            Console.Write($"Iterations: " + cellBoard.iterationCount.ToString() + Environment.NewLine);
-            Console.Write($"Live cells: " + cellBoard.aliveCount.ToString() + Environment.NewLine);
+            Console.Write(Constants.Messages.Iterations + cellBoard.iterationCount.ToString() + Environment.NewLine);
+            Console.Write(Constants.Messages.LiveCells + cellBoard.aliveCount.ToString() + Environment.NewLine);
         }
 
         /// <summary>
@@ -44,14 +46,14 @@
         /// </summary>
         public static void StartMenuMessage()
         {
-            Console.WriteLine("Welcome to the Game Of Life!" + Environment.NewLine);
-            Console.WriteLine("After the game is launched You can save application in any moment by pressing \'Esc\' key." + Environment.NewLine);
-            Console.WriteLine("Would you like to start a new game or restore a previously saved game?" + Environment.NewLine + "Please choose from the options below: ");
-            Console.WriteLine("1. Start a new game");
-            Console.WriteLine("2. Load a previously saved game");
-            Console.WriteLine("3. Start 1000 games and select 8 games to show on screen");
-            Console.WriteLine("4. Load 1000 previously saved games and select 8 games to show on screen");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine(Constants.Messages.Welcome + Environment.NewLine);
+            Console.WriteLine(Constants.Messages.SaveInfo + Environment.NewLine);
+            Console.WriteLine(Constants.Messages.StartOrRestore + Environment.NewLine + Constants.Messages.ChooseOptions);
+            Console.WriteLine(Constants.Messages.StartGame);
+            Console.WriteLine(Constants.Messages.LoadGame);
+            Console.WriteLine(Constants.Messages.Start1000Games);
+            Console.WriteLine(Constants.Messages.Load1000Games);
+            Console.WriteLine(Constants.Messages.Exit);
         }
 
         /// <summary>
@@ -59,8 +61,8 @@
         /// </summary>
         public static void WidthMessage()
         {
-            Console.WriteLine("Please enter the size of field.");
-            Console.Write("Width: ");
+            Console.WriteLine(Constants.Messages.EnterSize);
+            Console.Write(Constants.Messages.Width);
         }
 
         /// <summary>
@@ -68,8 +70,8 @@
         /// </summary>
         public static void ExitMenuFor1GameMessage()
         {
-            Console.WriteLine(Environment.NewLine + "1. Exit");
-            Console.WriteLine("2. Save and exit");
+            Console.WriteLine(Environment.NewLine + Constants.Messages.Exit1);
+            Console.WriteLine(Constants.Messages.SaveExit);
         }
 
         /// <summary>
@@ -77,9 +79,9 @@
         /// </summary>
         public static void ExitMenuFor8SelectedGamesMessage()
         {
-            Console.WriteLine(Environment.NewLine + "1. Exit");
-            Console.WriteLine("2. Save and exit");
-            Console.WriteLine("3. Change what exact games will be iterating on screen");
+            Console.WriteLine(Environment.NewLine + Constants.Messages.Exit1);
+            Console.WriteLine(Constants.Messages.SaveExit);
+            Console.WriteLine(Constants.Messages.ChangeGames);
         }
 
         /// <summary>
@@ -87,7 +89,7 @@
         /// </summary>
         public static void EndMessage()
         {
-            Console.WriteLine("Hope you enjoyed the game. Come back soon!");
+            Console.WriteLine(Constants.Messages.ComeBack);
         }
 
         /// <summary>
@@ -95,7 +97,7 @@
         /// </summary>
         public static void GameSavedMessage()
         {
-            Console.WriteLine("Game saved");
+            Console.WriteLine(Constants.Messages.GameSaved);
         }
 
         /// <summary>
@@ -103,7 +105,7 @@
         /// </summary>
         public static void GamesSavedMessage()
         {
-            Console.WriteLine("Games are saved");
+            Console.WriteLine(Constants.Messages.GamesSaved);
         }
 
         /// <summary>
@@ -111,7 +113,7 @@
         /// </summary>
         public static void InvalidInputMessage()
         {
-            Console.WriteLine("Invalid input!");
+            Console.WriteLine(Constants.Messages.InvalidInput);
         }
 
         /// <summary>
@@ -119,7 +121,7 @@
         /// </summary>
         public static void ProvideIndexMessage()
         {
-            Console.WriteLine(Environment.NewLine + "Please provide index (from 0 to 999) of 8 games that you would like to see on screen.");
+            Console.WriteLine(Environment.NewLine + Constants.Messages.ProvideIndex);
         }
 
         /// <summary>
@@ -127,7 +129,7 @@
         /// </summary>
         public static void FirstGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 1: ");
+            Console.Write(Constants.Messages.Index1);
         }
 
         /// <summary>
@@ -135,7 +137,7 @@
         /// </summary>
         public static void SecondGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 2: ");
+            Console.Write(Constants.Messages.Index2);
         }
 
         /// <summary>
@@ -143,7 +145,7 @@
         /// </summary>
         public static void ThirdGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 3: ");
+            Console.Write(Constants.Messages.Index3);
         }
 
         /// <summary>
@@ -151,7 +153,7 @@
         /// </summary>
         public static void FourthGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 4: ");
+            Console.Write(Constants.Messages.Index4);
         }
 
         /// <summary>
@@ -159,7 +161,7 @@
         /// </summary>
         public static void FifthGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 5: ");
+            Console.Write(Constants.Messages.Index5);
         }
 
         /// <summary>
@@ -167,7 +169,7 @@
         /// </summary>
         public static void SixthGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 6: ");
+            Console.Write(Constants.Messages.Index6);
         }
 
         /// <summary>
@@ -175,7 +177,7 @@
         /// </summary>
         public static void SeventhGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 7: ");
+            Console.Write(Constants.Messages.Index7);
         }
 
         /// <summary>
@@ -183,7 +185,8 @@
         /// </summary>
         public static void EigthGameIndexMessage()
         {
-            Console.Write("Please enter index of the game Nr. 8: ");
+            Console.Write(Constants.Messages.Index8);
         }
+
     }
 }

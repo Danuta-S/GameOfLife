@@ -1,4 +1,5 @@
 ﻿using GameOfLife.Library.Interfaces;
+using System.ComponentModel;
 using System.Text;
 
 namespace GameOfLife.Library
@@ -220,6 +221,7 @@ namespace GameOfLife.Library
         /// <returns>width or 0</returns>
         public int WidthCheck()
         {
+            //IConstants constants;
             UserOutput.WidthMessage();
             try
             {
@@ -228,6 +230,7 @@ namespace GameOfLife.Library
             }
             catch (FormatException)
             {
+                //(Constants.Messages.FormatException);
                 UserOutput.FormatExceptionMessage();
                 return 0;
             }
