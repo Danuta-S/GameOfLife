@@ -1,13 +1,8 @@
-using Xunit;
-using FluentAssertions;
-using GameOfLife.Library;
-using GameOfLife;
+﻿using GameOfLife.Library;
 
 namespace GameOfLife.UnitTests
 {
-    [Trait("Category", "UnitTest")]
     public class GameOfLifeLogicTests
-    {
-
+    {  
     }
 }

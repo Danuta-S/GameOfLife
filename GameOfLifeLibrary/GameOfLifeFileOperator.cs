@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GameOfLife.Library.Interfaces;
+using Newtonsoft.Json;
 
 namespace GameOfLife.Library
 {
@@ -9,6 +10,7 @@ namespace GameOfLife.Library
     {
         private const string rootFolder = @"C:\GameOfLifeFolder";
         private const string filePath = @"C:\GameOfLifeFolder\CellData.txt";
+        private const string arrayfilePath = @"C:\GameOfLifeFolder\CellDataArray.txt";
 
         /// <summary>
         /// Checks if the file for saving information exists.
@@ -60,6 +62,27 @@ namespace GameOfLife.Library
         {
             string jsonData = JsonConvert.SerializeObject(cellBoard, Formatting.Indented);
             File.WriteAllText(filePath, jsonData);
+        }
+
+        /// <summary>
+        /// Saves 1000 games to file.
+        /// </summary>
+        /// <param name="cellBoards">Array of the CellBoard</param>
+        public void JSONSerilaize(CellBoard[] cellBoards)
+        {
+            string jsonData = JsonConvert.SerializeObject(cellBoards, Formatting.Indented);
+            File.WriteAllText(arrayfilePath, jsonData);
+        }
+
+        /// <summary>
+        /// Load 1000 previously saved games.
+        /// </summary>
+        /// <returns>cellBoards array of the CellBoard</returns>
+        public CellBoard[] LoadPreviouslySavedGamesInArray()
+        {
+            string json = File.ReadAllText(arrayfilePath);
+            CellBoard[] cellBoards = JsonConvert.DeserializeObject<CellBoard[]>(json);
+            return cellBoards;
         }
 
         /// <summary>

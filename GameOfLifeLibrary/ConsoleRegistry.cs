@@ -1,9 +1,4 @@
-﻿using StructureMap.Graph;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameOfLife.Library.Interfaces;
 using StructureMap;
 
 namespace GameOfLife.Library
@@ -18,9 +13,8 @@ namespace GameOfLife.Library
                 scan.WithDefaultConventions();
             });
             For<IGameOfLifeManager>().Use<GameOfLifeManager>();
-            //For<IGameOfLifeLogic>().Use<GameOfLifeLogic>();
-            //For<IGameOfLifeFileOperator>().Use<GameOfLifeFileOperator>();
-            For<IGameOfLifeUI>().Use<GameOfLifeUI>();
+            For<IGameOfLifeLogic>().Use<GameOfLifeLogic>();
+            For<IGameOfLifeFileOperator>().Use<GameOfLifeFileOperator>();
         }
     }
 }
