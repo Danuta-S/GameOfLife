@@ -36,7 +36,7 @@
         public static void IterationAndLiveCellInformation(CellBoard cellBoard)
         {
             Console.Write($"Iterations: " + cellBoard.iterationCount.ToString() + Environment.NewLine);
-            Console.Write($"Live cells: " + cellBoard.aliveCount + Environment.NewLine) ;
+            Console.Write($"Live cells: " + cellBoard.aliveCount.ToString() + Environment.NewLine);
         }
 
         /// <summary>
@@ -49,7 +49,9 @@
             Console.WriteLine("Would you like to start a new game or restore a previously saved game?" + Environment.NewLine + "Please choose from the options below: ");
             Console.WriteLine("1. Start a new game");
             Console.WriteLine("2. Load a previously saved game");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Start 1000 games and select 8 games to show on screen");
+            Console.WriteLine("4. Load 1000 previously saved games and select 8 games to show on screen");
+            Console.WriteLine("5. Exit");
         }
 
         /// <summary>
@@ -64,11 +66,20 @@
         /// <summary>
         /// Shows a navigation menu message in the end of the game.
         /// </summary>
-        public static void ExitMenuMessage()
+        public static void ExitMenuFor1GameMessage()
         {
-            //Console.Clear();
-            Console.WriteLine("1. Exit");
+            Console.WriteLine(Environment.NewLine + "1. Exit");
             Console.WriteLine("2. Save and exit");
+        }
+
+        /// <summary>
+        /// Shows a navigation menu message in the end after selecting 8 games to be shown on screen.
+        /// </summary>
+        public static void ExitMenuFor8SelectedGamesMessage()
+        {
+            Console.WriteLine(Environment.NewLine + "1. Exit");
+            Console.WriteLine("2. Save and exit");
+            Console.WriteLine("3. Change what exact games will be iterating on screen");
         }
 
         /// <summary>
@@ -88,11 +99,91 @@
         }
 
         /// <summary>
+        /// Informs the user that the games are successfully saved.
+        /// </summary>
+        public static void GamesSavedMessage()
+        {
+            Console.WriteLine("Games are saved");
+        }
+
+        /// <summary>
         /// Informs the user if the input is invalid.
         /// </summary>
         public static void InvalidInputMessage()
         {
             Console.WriteLine("Invalid input!");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index.
+        /// </summary>
+        public static void ProvideIndexMessage()
+        {
+            Console.WriteLine(Environment.NewLine + "Please provide index (from 0 to 999) of 8 games that you would like to see on screen.");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the first game.
+        /// </summary>
+        public static void FirstGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 1: ");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the second game.
+        /// </summary>
+        public static void SecondGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 2: ");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the third game.
+        /// </summary>
+        public static void ThirdGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 3: ");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the fourth game.
+        /// </summary>
+        public static void FourthGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 4: ");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the fifth game.
+        /// </summary>
+        public static void FifthGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 5: ");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the sixth game.
+        /// </summary>
+        public static void SixthGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 6: ");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the seventh game.
+        /// </summary>
+        public static void SeventhGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 7: ");
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the eigth game.
+        /// </summary>
+        public static void EigthGameIndexMessage()
+        {
+            Console.Write("Please enter index of the game Nr. 8: ");
         }
     }
 }

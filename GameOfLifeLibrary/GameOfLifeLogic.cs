@@ -1,5 +1,4 @@
-﻿using GameOfLife;
-using System.Text;
+﻿using GameOfLife.Library.Interfaces;
 
 namespace GameOfLife.Library
 {
@@ -17,15 +16,22 @@ namespace GameOfLife.Library
             // A temp variable to hold the next state while it's being calculated.
             bool[,] newBoard = new bool[cellBoard.width, cellBoard.height];
 
+            // A temp variable to hold the board alive statuss 
+            bool alive;
+
             for (var row = 0; row < cellBoard.height; row++)
             {
                 UpdateColumns(cellBoard, row, newBoard);
             }
+            
+            // Checks if the updated board state is eqaual to previous.
+            alive = newBoard != cellBoard.board;
 
             // Set the board to its new state.
             cellBoard.board = newBoard;
+            cellBoard.isAlive = alive;
             cellBoard.iterationCount++;
-            CountAlive(cellBoard);
+            cellBoard.aliveCount = CountAlive(cellBoard);
         }
 
         /// <summary>
@@ -109,34 +115,31 @@ namespace GameOfLife.Library
         /// Returns the count of live cells.
         /// </summary>
         /// <param name="cellBoard">object of the CellBoard.</param>
-        public void CountAlive(CellBoard cellBoard)
+        public int CountAlive(CellBoard cellBoard)
         {
-            // Local temp variable holding the number of alive cells.
-            int count = 0;
-
+            int alive = 0; 
             for (var row = 0; row < cellBoard.height; row++)
             {
-                count = CounAliveInRows(cellBoard, row, count);
+                alive = CountAliveInRows(cellBoard, alive, row);
             }
-
-            cellBoard.aliveCount = count;
+            return alive;
         }
 
         /// <summary>
         /// Returns the count of live cells in rows.
         /// </summary>
         /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <param name="aliveCells">the count of live cells.</param>
         /// <param name="row">describes the rows of the grid.</param>
-        /// <param name="count">the number of live cells.</param>
-        /// <returns>Count - the number of live cells.</returns>
-        public int CounAliveInRows(CellBoard cellBoard, int row, int count)
+        /// <returns></returns>
+        public int CountAliveInRows(CellBoard cellBoard, int aliveCells, int row)
         {
             for (var column = 0; column < cellBoard.width; column++)
             {
-                count += cellBoard.board[column, row] ? 1 : 0;
+                aliveCells += cellBoard.board[column, row] ? 1 : 0;
             }
 
-            return count;
+            return aliveCells;
         }
     }
 }
