@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains methods for all the text that appears as user output in console.
     /// </summary>
-    public class UserOutput
+    public static class UserOutput
     {
         /// <summary>
         /// Shows a FormatException message for the invalid type of width and height input.

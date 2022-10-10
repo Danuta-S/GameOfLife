@@ -115,6 +115,7 @@ namespace GameOfLife.Library
         /// Returns the count of live cells.
         /// </summary>
         /// <param name="cellBoard">object of the CellBoard.</param>
+        /// <returns>alive - count of live cells in cellBoard.</returns>
         public int CountAlive(CellBoard cellBoard)
         {
             int alive = 0; 
