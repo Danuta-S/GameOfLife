@@ -1,28 +1,10 @@
-﻿using GameOfLife.Library.Interfaces;
-
-namespace GameOfLife.Library
+﻿namespace GameOfLife
 {
     /// <summary>
     /// Contains methods for all the text that appears as user output in console.
     /// </summary>
     public class UserOutput
     {
-        /// <summary>
-        /// Shows a FormatException message for the invalid type of width and height input.
-        /// </summary>
-        public static void FormatExceptionMessage()
-        {
-            Console.WriteLine(Constants.Messages.FormatException);
-        }
-
-        /// <summary>
-        /// Shows OverFlowException message if the input is too long for an int32.
-        /// </summary>
-        public static void OverFlowExceptionMessage()
-        {
-            Console.WriteLine(Constants.Messages.OverflowException);
-        }
-
         /// <summary>
         /// Shows message that informs user to insert the height of the grid.
         /// </summary>
@@ -59,6 +41,15 @@ namespace GameOfLife.Library
         /// <summary>
         /// Shows message that informs user to insert the width of the grid.
         /// </summary>
+        public static void CountMessage()
+        {
+            Console.WriteLine(Constants.Messages.EnterGameCount);
+            Console.Write(Constants.Messages.Count);
+        }
+
+        /// <summary>
+        /// Shows message that informs user to insert the width of the grid.
+        /// </summary>
         public static void WidthMessage()
         {
             Console.WriteLine(Constants.Messages.EnterSize);
@@ -82,14 +73,6 @@ namespace GameOfLife.Library
             Console.WriteLine(Environment.NewLine + Constants.Messages.Exit1);
             Console.WriteLine(Constants.Messages.SaveExit);
             Console.WriteLine(Constants.Messages.ChangeGames);
-        }
-
-        /// <summary>
-        /// Shows the last message if the user decides to exit the game.
-        /// </summary>
-        public static void EndMessage()
-        {
-            Console.WriteLine(Constants.Messages.ComeBack);
         }
 
         /// <summary>
@@ -117,11 +100,27 @@ namespace GameOfLife.Library
         }
 
         /// <summary>
+        /// Asks the user to enter the how many games to show.
+        /// </summary
+        public static void InputGamesToShowMessage()
+        {
+            Console.Write(Constants.Messages.HowManyGamesToShow);
+        }
+
+        /// <summary>
         /// Asks the user to enter the index.
         /// </summary>
         public static void ProvideIndexMessage()
         {
             Console.WriteLine(Environment.NewLine + Constants.Messages.ProvideIndex);
+        }
+
+        /// <summary>
+        /// Asks the user to enter the index of the game.
+        /// </summary>
+        public static void GameIndexMessage(int number)
+        {
+            Console.Write(Constants.Messages.Index + number + ": ");
         }
 
         /// <summary>
@@ -188,5 +187,20 @@ namespace GameOfLife.Library
             Console.Write(Constants.Messages.Index8);
         }
 
+        /// <summary>
+        /// Informs the user if the input is out of range.
+        /// </summary>
+        public static void OutOfRangeMessage()
+        {
+            Console.WriteLine(Constants.Messages.OutOfRange);
+        }
+
+        /// <summary>
+        /// Informs the user that input of index is out of range.
+        /// </summary>
+        public static void IndexOutOfRange()
+        {
+            Console.WriteLine(Constants.Messages.IndexOutOfRange);
+        }
     }
 }

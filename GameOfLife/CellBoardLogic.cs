@@ -1,11 +1,11 @@
-﻿using GameOfLife.Library.Interfaces;
+﻿using GameOfLife.Interfaces;
 
-namespace GameOfLife.Library
+namespace GameOfLife
 {
     /// <summary>
     /// Contains methods that are responsible for the logic of the app's algorithm.
     /// </summary>
-    public class GameOfLifeLogic : IGameOfLifeLogic
+    public class CellBoardLogic : ICellBoardLogic
     {
         /// <summary>
         /// Moves the board to the next state based on Conway's rules.
@@ -23,15 +23,15 @@ namespace GameOfLife.Library
             {
                 UpdateColumns(cellBoard, row, nextBoard);
             }
-            
-            // Checks if the updated board state is eqaual to previous.
+
+            // Checks if the updated board state is equal to previous.
             alive = nextBoard != cellBoard.board;
 
             // Set the board to its new state.
             cellBoard.board = nextBoard;
             cellBoard.isAlive = alive;
-            cellBoard.iterationCount++;
             cellBoard.aliveCount = CountAlive(cellBoard);
+            cellBoard.iterationCount++;
         }
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace GameOfLife.Library
         /// </summary>
         /// <param name="cellBoard">object of the CellBoard.</param>
         /// <param name="row">describes the rows of the grid.</param>
-        /// <param name="newBoard">the board is set to its new state.</param>
-        public void UpdateColumns(CellBoard cellBoard, int row, bool[,] newBoard)
+        /// <param name="nextBoard">the board is set to its new state.</param>
+        private void UpdateColumns(CellBoard cellBoard, int row, bool[,] nextBoard)
         {
             for (var column = 0; column < cellBoard.width; column++)
             {
@@ -49,7 +49,7 @@ namespace GameOfLife.Library
 
                 // A live cell dies unless it has exactly 2 or 3 live neighbors.
                 // A dead cell remains dead unless it has exactly 3 live neighbors.
-                newBoard[column, row] = c && (n == 2 || n == 3) || !c && n == 3;
+                nextBoard[column, row] = c && (n == 2 || n == 3) || !c && n == 3;
             }
         }
 
@@ -60,7 +60,7 @@ namespace GameOfLife.Library
         /// <param name="column">describes the columns of the grid.</param>
         /// <param name="row">describes the rows of the grid.</param>
         /// <returns>Value - the number of live neighbors.</returns>
-        public int CountLiveNeighbors(CellBoard cellBoard, int column, int row)
+        private int CountLiveNeighbors(CellBoard cellBoard, int column, int row)
         {
             // The number of live neighbors.
             int value = 0;
@@ -91,7 +91,7 @@ namespace GameOfLife.Library
         /// <param name="value">describes the number of live neighbors.</param>
         /// <param name="inverseRow">row index on the oposite side of the board.</param>
         /// <returns>Value - the number of live neighbors.</returns>
-        public int CountNeighborsInColumn(CellBoard cellBoard, int column, int value, int inverseRow)
+        private int CountNeighborsInColumn(CellBoard cellBoard, int column, int value, int inverseRow)
         {
             for (var i = -1; i <= 1; i++)
             {
@@ -114,18 +114,18 @@ namespace GameOfLife.Library
         /// <summary>
         /// Returns the count of live cells.
         /// </summary>
-        /// <param name="cellBoard">object of the CellBoard.</param>
-        /// <returns>alive - count of live cells in cellBoard.</returns>
+        /// <param name = "cellBoard" > object of the CellBoard.</param>
+        /// <returns>aliveCells - count of live cells in cellBoard.</returns>
         public int CountAlive(CellBoard cellBoard)
         {
-            int alive = 0; 
+            int aliveCells = 0;
             for (var row = 0; row < cellBoard.height; row++)
             {
-                alive = CountAliveInRows(cellBoard, alive, row);
+                aliveCells = CountAliveInRows(cellBoard, aliveCells, row);
             }
-            return alive;
-        }
 
+            return aliveCells;
+        }
         /// <summary>
         /// Returns the count of live cells in rows.
         /// </summary>
@@ -133,7 +133,7 @@ namespace GameOfLife.Library
         /// <param name="aliveCells">the count of live cells.</param>
         /// <param name="row">describes the rows of the grid.</param>
         /// <returns>aliveCells - the count of live cells in rows.</returns>
-        public int CountAliveInRows(CellBoard cellBoard, int aliveCells, int row)
+        private int CountAliveInRows(CellBoard cellBoard, int aliveCells, int row)
         {
             for (var column = 0; column < cellBoard.width; column++)
             {
@@ -141,6 +141,58 @@ namespace GameOfLife.Library
             }
 
             return aliveCells;
+        }
+
+        /// <summary>
+        /// Moves all the CellBoards in array to the next state based on Conway's rules.
+        /// </summary>
+        /// <param name="CellBoardArray">Array of the cellBoard objects.</param>
+        public void UpdateAllBoardsInArray(CellBoard[] CellBoardArray)
+        {
+            //foreach (CellBoard cellBoard in CellBoardArray)
+            Parallel.ForEach(CellBoardArray, cellBoard =>
+            {
+                if (cellBoard != null)
+                {
+                    UpdateBoard(cellBoard);
+                }
+            });
+        }
+
+        /// <summary>
+        /// Counts how many live games we have in total.
+        /// </summary>
+        /// <param name="CellBoardArray">Array of the cellBoard objects.</param>
+        /// <returns>count - Count of live games in total.</returns>
+        public int CountAliveBoardsInArray(CellBoard[] CellBoardArray)
+        {
+            int count = 0;
+            foreach (CellBoard cellBoard in CellBoardArray)
+            {
+                if (cellBoard != null && cellBoard.aliveCount > 0)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Counts how many live cells we have in total.
+        /// </summary>
+        /// <param name="CellBoardArray">Array of the cellBoard objects.</param>
+        /// <returns>count - Count of live cells in total.</returns>
+        public int CountAliveCellsInArray(CellBoard[] CellBoardArray)
+        {
+            int count = 0;
+            foreach (CellBoard cellBoard in CellBoardArray)
+            {
+                if (cellBoard != null)
+                {
+                    count += cellBoard.aliveCount;
+                }
+            }
+            return count;
         }
     }
 }
