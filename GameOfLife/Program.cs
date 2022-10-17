@@ -1,5 +1,4 @@
-﻿using GameOfLife.Library;
-using StructureMap;
+﻿using StructureMap;
 
 namespace GameOfLife
 {
@@ -7,8 +6,8 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-            var container = Container.For<ConsoleRegistry>();
-            var app = container.GetInstance<GameOfLifeManager>();
+            var container = Container.For<DependencyInjection>();
+            var app = container.GetInstance<CellBoardUI>();
             app.Start();
         }
     }
