@@ -1,4 +1,5 @@
 ﻿using GameOfLife.Interfaces;
+using System.Data.Common;
 
 namespace GameOfLife
 {
@@ -126,6 +127,7 @@ namespace GameOfLife
 
             return aliveCells;
         }
+
         /// <summary>
         /// Returns the count of live cells in rows.
         /// </summary>
@@ -149,7 +151,6 @@ namespace GameOfLife
         /// <param name="CellBoardArray">Array of the cellBoard objects.</param>
         public void UpdateAllBoardsInArray(CellBoard[] CellBoardArray)
         {
-            //foreach (CellBoard cellBoard in CellBoardArray)
             Parallel.ForEach(CellBoardArray, cellBoard =>
             {
                 if (cellBoard != null)

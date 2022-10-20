@@ -42,7 +42,7 @@ namespace GameOfLife
             if (width > 0 && height > 0)
             {
                 CellBoard game = _manager.CreateCellBoardObject(width, height);
-                Console.Clear();
+                
 
                 // Run the game until the Escape key is pressed.
                 while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
@@ -253,7 +253,7 @@ namespace GameOfLife
         /// <param name="boards">Objects of the CellBoard array.</param>
         /// <param name="gamesToShow">int number of games to show.</param>
         /// <param name="builder">StringBuilder object.</param>
-        /// <param name="row"></param>
+        /// <param name="row">draws 4 games on screen row by row.</param>
         private void DrawNext4Boards(CellBoard[] boards, int gamesToShow, StringBuilder builder, int row)
         {
             for (var draw = 4; draw < gamesToShow; draw++)
@@ -269,7 +269,7 @@ namespace GameOfLife
         /// <param name="boards">Objects of the CellBoard array.</param>
         /// <param name="gamesToShow">int number of games to show.</param>
         /// <param name="builder">StringBuilder object.</param>
-        /// <param name="row"></param>
+        /// <param name="row">draws the first 4 games on screen row by row.</param>
         private void DrawFirst4Boards(CellBoard[] boards, int gamesToShow, StringBuilder builder, int row)
         {
             for (var draw = 0; draw < gamesToShow; draw++)
@@ -333,6 +333,8 @@ namespace GameOfLife
                     ExitMenu(cellBoards);
                     break;
                 default:
+                    UserOutput.InvalidInputTryAgain();
+                    ExitMenu(cellBoards);
                     break;
             }
         }
@@ -354,6 +356,10 @@ namespace GameOfLife
                     Console.Clear();
                     _fileOperator.JSONSerilaize(cellBoard);
                     UserOutput.GameSavedMessage();
+                    break;
+                default :
+                    UserOutput.InvalidInputTryAgain();
+                    ExitMenu(cellBoard);
                     break;
             }
         }
@@ -380,6 +386,10 @@ namespace GameOfLife
                     StartUpTo1000SavedGameCase();
                     break;
                 case "5":
+                    break;
+                default :
+                    UserOutput.InvalidInputTryAgain();
+                    ShowMenu();
                     break;
             }
         }
@@ -417,10 +427,11 @@ namespace GameOfLife
         /// <param name="cellBoard">object of the CellBoard.</param>
         private void RunGame(CellBoard cellBoard)
         {
+            Console.Clear();
             DrawBoard(cellBoard);
             UserOutput.IterationAndLiveCellInformation(cellBoard);
             _logic.UpdateBoard(cellBoard);
-
+ 
             // Wait for a bit between updates.
             Thread.Sleep(CellBoardUI.delay);
         }
@@ -433,6 +444,7 @@ namespace GameOfLife
         private void RunMultipleGames(CellBoard[] boards, int gamesToShow)
         {
             var count = _logic.CountAliveBoardsInArray(boards);
+            Console.Clear();
             Draw8Boards(boards, gamesToShow);
             Console.WriteLine(Constants.Messages.SelectedGamesIndex + String.Join(", ", SelectedGamesIndexes(Draw8GamesByIndex, gamesToShow)));
             Console.Write(Constants.Messages.Iterations + boards[0].iterationCount.ToString() + Environment.NewLine);
@@ -497,10 +509,8 @@ namespace GameOfLife
             else
             {
                 UserOutput.OutOfRangeMessage();
-                CountCheck();
+                return 1000;
             }
-
-            return 1000;
         }
 
         /// <summary>
@@ -519,10 +529,8 @@ namespace GameOfLife
             else
             {
                 UserOutput.InvalidInputMessage();
-                WidthCheck();
+                return 10;
             }
-
-            return 0;
         }
 
         /// <summary>
@@ -541,10 +549,8 @@ namespace GameOfLife
             else
             {
                 UserOutput.InvalidInputMessage();
-                HeightCheck();
+                return 10;
             }
-
-            return 0;
         }
     }
 }

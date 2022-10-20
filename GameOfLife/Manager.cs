@@ -45,7 +45,7 @@ namespace GameOfLife
         /// <returns>CellBoardArray array of the cellBoard objects.</returns>
         public CellBoard[] CreateCellBoardObjectArray(int width, int height, int count)
         {
-             CellBoard[] CellBoardArray = new CellBoard[count];
+            CellBoard[] CellBoardArray = new CellBoard[count];
             for (int i = 0; i < CellBoardArray.Length; i++)
             {
                 CellBoard cellBoard = new()
@@ -70,7 +70,6 @@ namespace GameOfLife
         /// <param name="cellBoard">Object of the CellBoard.</param>
         private void InitializeRandomBoard(CellBoard cellBoard)
         {
-            //var board = new CellBoard();
             var random = new Random();
 
             cellBoard.board = new bool[cellBoard.width, cellBoard.height];

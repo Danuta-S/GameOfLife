@@ -25,7 +25,7 @@
             public const string ChangeGames = "3. Change what exact games will be iterating on screen";
             public const string GameSaved = "Game saved";
             public const string GamesSaved = "Games are saved";
-            public const string InvalidInput = "Invalid input!";
+            public const string InvalidInput = "Invalid input! Default size of 10 selected";
             public const string HowManyGamesToShow = "Input how many Games You would like to see on screen (1 to 8):";
             public const string ProvideIndex = "Please provide index of games that you would like to see on screen.";
             public const string Index = "Please enter index of the game Nr.";
@@ -41,8 +41,9 @@
             public const string SelectedGamesIndex = "Indexes of the selected games: ";
             public const string AliveGames = "Alive game count: ";
             public const string CellsInTotal = "Live cells in total: ";
-            public const string OutOfRange = "Number out of range, try again!";
+            public const string OutOfRange = "Number out of range, default set";
             public const string IndexOutOfRange = "Provided Game index out of range, default index = 0 selected";
+            public const string InvalidInputTryAgain = "Invalid input. Please try again!";
         }
     }
 }
