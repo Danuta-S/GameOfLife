@@ -1,5 +1,4 @@
 ﻿using GameOfLife.Interfaces;
-using System.Data.Common;
 
 namespace GameOfLife
 {

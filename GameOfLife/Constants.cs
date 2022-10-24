@@ -41,7 +41,8 @@
             public const string SelectedGamesIndex = "Indexes of the selected games: ";
             public const string AliveGames = "Alive game count: ";
             public const string CellsInTotal = "Live cells in total: ";
-            public const string OutOfRange = "Number out of range, default set";
+            public const string OutOfRange = "Number out of range, default number of 1000 games set";
+            public const string OutOfRangeDefault = "Number out of range, default number of 8 games set";
             public const string IndexOutOfRange = "Provided Game index out of range, default index = 0 selected";
             public const string InvalidInputTryAgain = "Invalid input. Please try again!";
         }

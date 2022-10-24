@@ -210,5 +210,13 @@
         {
             Console.WriteLine(Constants.Messages.InvalidInputTryAgain);
         }
+
+        /// <summary>
+        /// Informs the user that input was out of range and offers to try again.
+        /// </summary>
+        public static void OutOfRangeDefaultMessage()
+        {
+            Console.WriteLine(Constants.Messages.OutOfRangeDefault);
+        }
     }
 }
