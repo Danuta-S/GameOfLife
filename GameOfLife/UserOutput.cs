@@ -19,8 +19,8 @@
         /// <param name="cellBoard">object of the CellBoard.</param>
         public static void IterationAndLiveCellInformation(CellBoard cellBoard)
         {
-            Console.Write(Constants.Messages.Iterations + cellBoard.iterationCount.ToString() + Environment.NewLine);
-            Console.Write(Constants.Messages.LiveCells + cellBoard.aliveCount.ToString() + Environment.NewLine);
+            Console.Write(Constants.Messages.Iterations + cellBoard.iterationCount + Environment.NewLine);
+            Console.Write(Constants.Messages.LiveCells + cellBoard.aliveCount + Environment.NewLine);
         }
 
         /// <summary>
@@ -201,6 +201,22 @@
         public static void IndexOutOfRange()
         {
             Console.WriteLine(Constants.Messages.IndexOutOfRange);
+        }
+
+        /// <summary>
+        /// Informs the user that input was invalid and offers to try again.
+        /// </summary>
+        public static void InvalidInputTryAgain()
+        {
+            Console.WriteLine(Constants.Messages.InvalidInputTryAgain);
+        }
+
+        /// <summary>
+        /// Informs the user that input was out of range and offers to try again.
+        /// </summary>
+        public static void OutOfRangeDefaultMessage()
+        {
+            Console.WriteLine(Constants.Messages.OutOfRangeDefault);
         }
     }
 }

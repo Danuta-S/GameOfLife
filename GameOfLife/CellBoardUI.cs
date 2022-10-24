@@ -42,13 +42,10 @@ namespace GameOfLife
             if (width > 0 && height > 0)
             {
                 CellBoard game = _manager.CreateCellBoardObject(width, height);
-                Console.Clear();
+
 
                 // Run the game until the Escape key is pressed.
-                while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
-                {
-                    RunGame(game);
-                }
+                RunGameUntilEscPressed(game);
 
                 UserOutput.ExitMenuFor1GameMessage();
                 ExitMenu(game);
@@ -60,17 +57,28 @@ namespace GameOfLife
         }
 
         /// <summary>
+        /// While loop that allows game to run until Escape key gets pressed.
+        /// </summary>
+        /// <param name="game">Object of the CellBoard.</param>
+        private void RunGameUntilEscPressed(CellBoard game)
+        {
+            while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
+            {
+                RunGame(game);
+            }
+        }
+
+        /// <summary>
         /// Case 2 - load the previously saved game - in the navigation menu at the start of the game.
         /// </summary>
         private void StartSavedGameCase()
         {
             CellBoard game = _fileOperator.JSONSDeserilaize();
             Console.Clear();
+
             // Run the game until the Escape key is pressed.
-            while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
-            {
-                RunGame(game);
-            }
+            RunGameUntilEscPressed(game);
+
             UserOutput.ExitMenuFor1GameMessage();
             ExitMenu(game);
         }
@@ -94,10 +102,7 @@ namespace GameOfLife
                 Console.Clear();
 
                 // Run the game until the Escape key is pressed.
-                while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
-                {
-                    RunMultipleGames(games, gameCount);
-                }
+                RunGamesUntilEscPressed(games, gameCount);
 
                 UserOutput.ExitMenuFor8SelectedGamesMessage();
                 ExitMenu(games);
@@ -105,6 +110,19 @@ namespace GameOfLife
             else
             {
                 UserOutput.InvalidInputMessage();
+            }
+        }
+
+        /// <summary>
+        /// While loop that allows games to run until Escape key gets pressed.
+        /// </summary>
+        /// <param name="games">Object of the CellBoard array.</param>
+        /// <param name="gameCount">Count of the games to see on the screen.</param>
+        private void RunGamesUntilEscPressed(CellBoard[] games, int gameCount)
+        {
+            while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
+            {
+                RunMultipleGames(games, gameCount);
             }
         }
 
@@ -119,10 +137,8 @@ namespace GameOfLife
             SelectUpTo8GamesToShow(gameCount, games);
             Console.Clear();
             // Run the game until the Escape key is pressed.
-            while (!Console.KeyAvailable || Console.ReadKey(true).Key != ConsoleKey.Escape)
-            {
-                RunMultipleGames(games, gameCount);
-            }
+            RunGamesUntilEscPressed(games, gameCount);
+
             UserOutput.ExitMenuFor8SelectedGamesMessage();
             ExitMenu(games);
         }
@@ -142,8 +158,8 @@ namespace GameOfLife
             }
             else
             {
-                UserOutput.OutOfRangeMessage();
-                GamesToShowCheck();
+                UserOutput.OutOfRangeDefaultMessage();
+                //GamesToShowCheck();
             }
 
             return 8;
@@ -253,7 +269,7 @@ namespace GameOfLife
         /// <param name="boards">Objects of the CellBoard array.</param>
         /// <param name="gamesToShow">int number of games to show.</param>
         /// <param name="builder">StringBuilder object.</param>
-        /// <param name="row"></param>
+        /// <param name="row">draws 4 games on screen row by row.</param>
         private void DrawNext4Boards(CellBoard[] boards, int gamesToShow, StringBuilder builder, int row)
         {
             for (var draw = 4; draw < gamesToShow; draw++)
@@ -269,7 +285,7 @@ namespace GameOfLife
         /// <param name="boards">Objects of the CellBoard array.</param>
         /// <param name="gamesToShow">int number of games to show.</param>
         /// <param name="builder">StringBuilder object.</param>
-        /// <param name="row"></param>
+        /// <param name="row">draws the first 4 games on screen row by row.</param>
         private void DrawFirst4Boards(CellBoard[] boards, int gamesToShow, StringBuilder builder, int row)
         {
             for (var draw = 0; draw < gamesToShow; draw++)
@@ -333,6 +349,8 @@ namespace GameOfLife
                     ExitMenu(cellBoards);
                     break;
                 default:
+                    UserOutput.InvalidInputTryAgain();
+                    ExitMenu(cellBoards);
                     break;
             }
         }
@@ -354,6 +372,10 @@ namespace GameOfLife
                     Console.Clear();
                     _fileOperator.JSONSerilaize(cellBoard);
                     UserOutput.GameSavedMessage();
+                    break;
+                default :
+                    UserOutput.InvalidInputTryAgain();
+                    ExitMenu(cellBoard);
                     break;
             }
         }
@@ -380,6 +402,10 @@ namespace GameOfLife
                     StartUpTo1000SavedGameCase();
                     break;
                 case "5":
+                    break;
+                default :
+                    UserOutput.InvalidInputTryAgain();
+                    ShowMenu();
                     break;
             }
         }
@@ -417,12 +443,16 @@ namespace GameOfLife
         /// <param name="cellBoard">object of the CellBoard.</param>
         private void RunGame(CellBoard cellBoard)
         {
-            DrawBoard(cellBoard);
-            UserOutput.IterationAndLiveCellInformation(cellBoard);
-            _logic.UpdateBoard(cellBoard);
-
-            // Wait for a bit between updates.
-            Thread.Sleep(CellBoardUI.delay);
+            var t = Task.Run(async delegate
+            {
+                Console.Clear();
+                DrawBoard(cellBoard);
+                UserOutput.IterationAndLiveCellInformation(cellBoard);
+                _logic.UpdateBoard(cellBoard);
+                await Task.Delay(CellBoardUI.delay);
+            });
+            // Wait for task to complete
+            t.Wait();
         }
 
         /// <summary>
@@ -432,17 +462,20 @@ namespace GameOfLife
         /// <param name="gamesToShow">int number of games to show.</param>
         private void RunMultipleGames(CellBoard[] boards, int gamesToShow)
         {
-            var count = _logic.CountAliveBoardsInArray(boards);
-            Draw8Boards(boards, gamesToShow);
-            Console.WriteLine(Constants.Messages.SelectedGamesIndex + String.Join(", ", SelectedGamesIndexes(Draw8GamesByIndex, gamesToShow)));
-            Console.Write(Constants.Messages.Iterations + boards[0].iterationCount.ToString() + Environment.NewLine);
-            Console.WriteLine(Constants.Messages.AliveGames + count);
-            Console.WriteLine(Constants.Messages.CellsInTotal + _logic.CountAliveCellsInArray(boards));
+            var t = Task.Run(async delegate
+            {
+                var count = _logic.CountAliveBoardsInArray(boards);
+                Console.Clear();
+                Draw8Boards(boards, gamesToShow);
+                Console.WriteLine(Constants.Messages.SelectedGamesIndex + String.Join(", ", SelectedGamesIndexes(Draw8GamesByIndex, gamesToShow)));
+                Console.Write(Constants.Messages.Iterations + boards[0].iterationCount.ToString() + Environment.NewLine);
+                Console.WriteLine(Constants.Messages.AliveGames + count);
+                Console.WriteLine(Constants.Messages.CellsInTotal + _logic.CountAliveCellsInArray(boards));
+                _logic.UpdateAllBoardsInArray(boards);
+                await Task.Delay(CellBoardUI.delay);
 
-            _logic.UpdateAllBoardsInArray(boards);
-
-            // Wait for a bit between updates.
-            Thread.Sleep(CellBoardUI.delay);
+            });
+            t.Wait();
         }
 
         /// <summary>
@@ -452,7 +485,8 @@ namespace GameOfLife
         /// <param name="boards">Objects of the CellBoard array.</param>
         private void CheckIndex(int index, CellBoard[] boards)
         {
-            int.TryParse(Console.ReadLine(), out var id);
+            int id = 0;
+            int.TryParse(Console.ReadLine(), out  id);
 
             if (id < boards.Length)
             {
@@ -488,7 +522,8 @@ namespace GameOfLife
         private int CountCheck()
         {
             UserOutput.CountMessage();
-            int.TryParse(Console.ReadLine(), out int count);
+            int count = 1000;
+            int.TryParse(Console.ReadLine(), out count);
 
             if (count >= 1 && count <= 1000)
             {
@@ -497,10 +532,8 @@ namespace GameOfLife
             else
             {
                 UserOutput.OutOfRangeMessage();
-                CountCheck();
+                return 1000;
             }
-
-            return 1000;
         }
 
         /// <summary>
@@ -511,7 +544,8 @@ namespace GameOfLife
         {
             UserOutput.WidthMessage();
 
-            int.TryParse(Console.ReadLine(), out int width);
+            int width = 10;
+            int.TryParse(Console.ReadLine(), out width);
             if (width > 0)
             {
                 return width;
@@ -519,10 +553,8 @@ namespace GameOfLife
             else
             {
                 UserOutput.InvalidInputMessage();
-                WidthCheck();
+                return 10;
             }
-
-            return 0;
         }
 
         /// <summary>
@@ -533,7 +565,8 @@ namespace GameOfLife
         {
             UserOutput.HeightMessage();
 
-            int.TryParse(Console.ReadLine(), out int height);
+            int height = 10;
+            int.TryParse(Console.ReadLine(), out height);
             if (height > 0)
             {
                 return height;
@@ -541,10 +574,8 @@ namespace GameOfLife
             else
             {
                 UserOutput.InvalidInputMessage();
-                HeightCheck();
+                return 10;
             }
-
-            return 0;
         }
     }
 }

@@ -34,4 +34,5 @@ public interface ICellBoardLogic
     /// <param name="CellBoardArray">Array of the cellBoard objects.</param>
     /// <returns>count - Count of live cells in total.</returns>
     int CountAliveCellsInArray(CellBoard[] CellBoardArray);
+
 }
